@@ -112,13 +112,3 @@ aws ec2 authorize-security-group-ingress --group-name SGAssignment7Ohio \
 --ip-permissions IpProtocol=tcp,FromPort=22,ToPort=22,IpRanges=[{CidrIp=0.0.0.0/0}] \
 IpProtocol=tcp,FromPort=80,ToPort=80,IpRanges=[{CidrIp=0.0.0.0/0}]
 
-#Step20: Create a new instance from AMI image created in Step15 (in the Ohio region):
-aws ec2 run-instances \
-    --image-id "$amiID2" \
-    --instance-type "$ec2typeOhio" \
-    --count "$ec2numberOhio" \
-    --key-name "$keypairOhio" \
-    --security-group-ids "$SGAssignment7Ohio" \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Assignment7task2Ohio}]'
-
-    #create-instances-from-snapshot
