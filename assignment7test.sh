@@ -82,13 +82,8 @@ aws ec2 run-instances \
 #Step12: Get Instance ID of the nstance created in Step11:
 instanceID2=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=Assignment7task2" --query Reservations[*].Instances[*].[InstanceId] --output text)
 
-#Step13: SSH to Instance created in Step11 and check the content of the index.html file (should be the same as in instance created in Step3):
-ssh -i "$keypair" ec2-user@"$instanceID2" 'ls /usr/share/nginx/html' | grep 'alexabuy.jpg' > ~/check1.txt
 
-#Step14: SSH to Instance created in Step11 and check if the alexabuy.jpg exists in the Nginx root directory:
-ssh -i "$keypair" ec2-user@"$instanceID2" 'cat /usr/share/nginx/html/index.html' > ~/check2.txt
-
-#Step15: Copy AMI image from the N. Virginia region to the Ohio region:
+#Step13: Copy AMI image from the N. Virginia region to the Ohio region:
 aws ec2 copy-image \
     --region us-east-2 \
     --name ami-name \
@@ -96,17 +91,17 @@ aws ec2 copy-image \
     --source-image-id "$amiID" \
     --description "This is my copied image"
     
-#Step16: #Step7: Get AMI image ID from AMI created in Step15:
+#Step14: #Step7: Get AMI image ID from AMI created in Step15:
 amiID2=$(aws ec2 describe-images --region us-east-2 --filters "Name=name,Values=ami-name" --query 'Images[*].[ImageId]' --output text)
 
-#Step17: Wait untill AMI launches (becomes available):
+#Step15: Wait untill AMI launches (becomes available):
 aws ec2 wait image-available \
     --image-ids "$amiID2"
 
-#Step18: Security group ID (create SG and save returned SG ID in a variable):
+#Step16: Security group ID (create SG and save returned SG ID in a variable):
 SGAssignment7Ohio=$(aws ec2 create-security-group --group-name SGAssignment7Ohio --description "Security Group Assignment7 in Ohio" --region "$SGregionOhio" --query 'GroupId' --output text)
 
-#Step19: Security group Inbound Rules (authorize port 80 (http) and port 22 (ssh) in Security group for all internet trafic (all IPs)):
+#Step17: Security group Inbound Rules (authorize port 80 (http) and port 22 (ssh) in Security group for all internet trafic (all IPs)):
 aws ec2 authorize-security-group-ingress --group-name SGAssignment7Ohio \
 --region "$SGregionOhio" \
 --ip-permissions IpProtocol=tcp,FromPort=22,ToPort=22,IpRanges=[{CidrIp=0.0.0.0/0}] \
