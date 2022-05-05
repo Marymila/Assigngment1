@@ -5,7 +5,7 @@ keypair1="arkadiy-key-NVirginia"
 keypair2="arkadiy-key-Ohio"
 userdata="Assignment7userdata.txt"
 
-# Task 1.
+# Task 1. ==============================================================================================================================
 # create security group and save returned SG id in a variable
 assignment7T1SGid=$(aws ec2 create-security-group --group-name Assignment7T1SG --description "Assignment#7 security group" \
 	--query 'GroupId' --output text)
@@ -21,7 +21,7 @@ assignment7T1Instanceid=$(aws ec2 run-instances --image-id "$amazonLinux2T1AMI" 
 	--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Assignment7task1}]' \
 	--query "Instances[].InstanceId" --output text)
 
-# Task 2 ==================================================================================================================================
+# Task 2. ==================================================================================================================================
 # wait
 aws ec2 wait instance-status-ok \
 	--instance-ids "$assignment7T1Instanceid" \
@@ -108,7 +108,7 @@ ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=10 -i /Users/arkadiybalak
 
 sleep 20
 
-# Task 3 ====================================================================================================================================
+# Task 3. ====================================================================================================================================
 export AWS_DEFAULT_REGION=us-east-1
 
 # pub ip variable
