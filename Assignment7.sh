@@ -5,7 +5,7 @@ keypair1="arkadiy-key-NVirginia"
 keypair2="arkadiy-key-Ohio"
 userdata="Assignment7userdata.txt"
 
-# Task 1
+# Task 1.
 # create security group and save returned SG id in a variable
 assignment7T1SGid=$(aws ec2 create-security-group --group-name Assignment7T1SG --description "Assignment#7 security group" \
 	--query 'GroupId' --output text)
