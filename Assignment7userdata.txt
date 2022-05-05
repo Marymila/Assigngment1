@@ -10,4 +10,4 @@ cat << EOF | tee /usr/share/nginx/html/index.html
 <html>
 <img src="alexabuy.jpg" alt="Alexa Buy Whole Foods">
 </html>
------------------------EOF-----------------------------
+EOF
